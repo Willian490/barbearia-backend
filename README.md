@@ -5,14 +5,14 @@ Projeto integrador — TSI · IFSP São João da Boa Vista.
 Um único projeto Laravel com duas frentes:
 
 - **API** (`/api/v1/...`): consumida pelo front em React (cliente final). Autenticação via **Sanctum**.
-- **Painel Administrativo** (`/admin`): back-office do estabelecimento, feito em **Filament**.
+- **Painel Administrativo** (`/admin`): back-office do estabelecimento, em **Filament** (ainda não instalado, veja abaixo).
 
 As duas frentes usam os mesmos models, migrations, policies e regras de negócio.
 
 ## Stack
 
-- PHP 8.2+ · Laravel 12 · Filament 5 · Sanctum · Pest
-- Banco: SQLite no desenvolvimento local (padrão) / MySQL no ambiente oficial
+- PHP 8.2+ · Laravel 12 · Sanctum · Pest · Filament (a instalar)
+- Banco: MySQL (modelado pela equipe de banco). Os testes usam SQLite em memória.
 
 ## Como rodar
 
@@ -28,13 +28,25 @@ php artisan serve
 Teste: http://localhost:8000/api/v1/status → `{"data":{"app":"Sistema de Agendamento","versao":"v1"}}`
 
 **Não precisa de banco para subir a API.** Sessão, cache e fila estão configurados em arquivo (`file`/`sync`) no `.env`.
-O banco só será necessário quando existirem rotas que leem ou gravam dados, e o painel `/admin` (login) também depende dele.
+O banco só será necessário quando existirem rotas que leem ou gravam dados.
 
-> No XAMPP, as extensões `intl` e `zip` precisam estar ativas no `php.ini`.
+> No XAMPP, ative a extensão `zip` no `php.ini` (deixa o Composer mais rápido).
 
 ### Quando o banco da outra equipe ficar pronto
 
 Ajuste no `.env`: `DB_CONNECTION=mysql`, `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD` e rode `php artisan migrate`.
+
+### Instalar o Filament (painel administrativo)
+
+O Filament ainda não está no projeto. Para instalar:
+
+```bash
+composer require filament/filament
+php artisan filament:install --panels
+```
+
+> O Filament exige a extensão `intl` ativa no `php.ini` (no XAMPP: tirar o `;` da linha `;extension=intl`).
+> O login do `/admin` precisa de banco de dados.
 
 ## Testes
 

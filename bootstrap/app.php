@@ -13,7 +13,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         // Sem token na API: 401 em JSON, em vez de redirecionar para uma tela de login
-        $middleware->redirectGuestsTo(fn ($request) => $request->is('api/*') ? null : '/admin/login');
+        $middleware->redirectGuestsTo(fn ($request) => $request->is('api/*') ? null : '/');
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         // Erros em /api/* sempre em JSON, mesmo sem o header Accept
