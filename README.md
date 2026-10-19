@@ -22,17 +22,19 @@ cd sistema-barbearia-backend
 composer install
 cp .env.example .env
 php artisan key:generate
-php artisan migrate
-php artisan make:filament-user   # cria um usuário para entrar no /admin
 php artisan serve
 ```
 
-- API: http://localhost:8000/api/v1/status
-- Painel: http://localhost:8000/admin
+Teste: http://localhost:8000/api/v1/status → `{"data":{"app":"Sistema de Agendamento","versao":"v1"}}`
+
+**Não precisa de banco para subir a API.** Sessão, cache e fila estão configurados em arquivo (`file`/`sync`) no `.env`.
+O banco só será necessário quando existirem rotas que leem ou gravam dados, e o painel `/admin` (login) também depende dele.
 
 > No XAMPP, as extensões `intl` e `zip` precisam estar ativas no `php.ini`.
 
-Para usar MySQL, ajuste no `.env`: `DB_CONNECTION=mysql`, `DB_HOST`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`.
+### Quando o banco da outra equipe ficar pronto
+
+Ajuste no `.env`: `DB_CONNECTION=mysql`, `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD` e rode `php artisan migrate`.
 
 ## Testes
 
