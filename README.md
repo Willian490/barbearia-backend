@@ -46,14 +46,16 @@ Os testes usam SQLite em memória, então não precisam de banco configurado.
 
 ## Organização das pastas
 
+Pastas marcadas com * ainda não existem: criem quando a primeira classe for para lá.
+
 | Pasta | Frente | Conteúdo |
 |---|---|---|
 | `app/Models`, `database/migrations` | Base (compartilhada) | Modelo de dados. Mudanças passam pela revisão do líder. |
-| `app/Policies`, `app/Enums` | Base (compartilhada) | Permissões e papéis (RF #01–#03). Usadas pela API e pelo Filament. |
-| `app/Services` | Base (compartilhada) | **Regras de negócio** (agendamento, disponibilidade, caixa...). |
+| `app/Policies`*, `app/Enums`* | Base (compartilhada) | Permissões e papéis (RF #01–#03). Usadas pela API e pelo Filament. |
+| `app/Services`* | Base (compartilhada) | **Regras de negócio** (agendamento, disponibilidade, caixa...). |
 | `app/Http/Controllers/Api/V1`, `routes/api.php` | API | Endpoints do cliente final. |
-| `app/Filament` | Painel | Resources, páginas e widgets do Filament. |
-| `tests/Feature/Api`, `tests/Feature/Painel`, `tests/Unit` | Cada frente | Testes Pest. |
+| `app/Filament`* | Painel | Resources, páginas e widgets do Filament. |
+| `tests/Feature/Api`, `tests/Feature/Painel`*, `tests/Unit` | Cada frente | Testes Pest. |
 
 **Regra principal:** controllers e telas do Filament **não têm regra de negócio**. Os dois chamam os mesmos `Services`.
 Exemplo: criar um agendamento pela API ou pelo painel passa pelo mesmo `AgendamentoService`, com a mesma checagem de conflito.
